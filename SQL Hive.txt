@@ -1,0 +1,11 @@
+﻿CREATE TABLE D_CARD AS SELECT card_id, type, issued FROM card;
+
+CREATE TABLE D_CLIENT AS SELECT client_id, birth_number, district_id as district_code from client;
+
+CREATE TABLE D_ACCOUNT AS SELECT account_id, district_id as district_code, frequency, date from account;
+
+CREATE TABLE F_TRANS
+AS SELECT t.*, d.client_id as client_id, c.card_id as card_id 
+from trans t 
+inner join disp d on t.account_id = d.account_id 
+left outer join card c on c.disp_id = d.disp_id;
